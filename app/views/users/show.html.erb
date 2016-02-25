@@ -1,0 +1,16 @@
+<h1>Detlhes do usuário</h1>
+<dl class="dl-horizontal">
+	<dt><strong>Nome:</strong></dt>
+  <dd><%= @user.first_name %></dd>
+  <dt><strong>Sobrenome:</strong></dt>
+  <dd><%= @user.last_name %></dd>
+  <dt><strong>Usuário:</strong></dt>
+  <dd><%= @user.username %></dd>
+  <dt><strong>E-mail:</strong></dt>
+  <dd><%= @user.email %></dd>
+  <dt><strong>Administrador:</strong></dt>
+  <dd><%= is_admin?(@user) %></dd>
+</dl>
+
+<%= link_to "Editar", edit_user_url(@user) %>
+<%= link_to "Apagar", user_url(@user), method: :delete, data: {confirm: "Atenção! ao apagar esse usuário todas as informações seram apagadas. Deseja continuar?"} %>

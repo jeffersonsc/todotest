@@ -1,0 +1,28 @@
+<h1>Uusuários</h1>
+<p><%= link_to "Novo usuário", new_user_url %></p>
+
+<table class="table table-hover table-responsive">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>NOME</th>
+			<th>ADMIN.</th>
+			<th>CRIADO EM</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= user.id %></td>
+				<td><%= link_to "#{user.first_name} #{user.last_name}", user_url(user) %></td>
+				<td><%= is_admin?(user) %></td>
+				<td><%= datetime(user.created_at) %></td>
+				<td>
+					<%= link_to "Editar", edit_user_url(user) %>
+					<%= link_to "Apagar", user_url(user), method: :delete, data: {confirm: "Atenção! ao apagar esse usuário todas as informações seram apagadas. Deseja continuar?"} %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

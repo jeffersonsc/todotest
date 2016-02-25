@@ -1,0 +1,10 @@
+<%= simple_form_for @user, html: { class: 'form-horizontal' } do |f| %>
+	<%= f.input :first_name , label: "Nome" %>
+	<%= f.input :last_name, label: "Sobrenome" %>
+	<%= f.input :username, label: "Usuário" %>
+	<%= f.input :email, label: "E-mail" %>
+	<%= f.input :birth_date, as: :date, start_year: Date.today.year - 90, order: [:day, :month, :year], label: "Data de nascimento" %>
+	<%= f.input :admin, label: "Administrador" %>
+
+	<%= f.button :submit, value: "Salvar" %>
+<% end %>
