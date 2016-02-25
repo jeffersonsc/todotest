@@ -18,21 +18,47 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to "Todo", root_url, class: "navbar-brand" %>
+      <%= link_to "TodoTruckpad", root_url, class: "navbar-brand" %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><%= link_to "Todos", "#" %></li>
-        <li><%= link_to "Usuários", users_url %></li>
-      </ul>
+      <% if user_signed_in? %>
+        <ul class="nav navbar-nav">
+          <li><%= link_to "Todos", "#" %></li>
+          <li><%= link_to "Usuários", users_url %></li>
+        </ul>
+
+        <ul class="nav navbar-nav pull-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Opções<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to current_user.first_name, "#" %></li>
+              <li role="separator" class="divider"></li>
+              <li><%= link_to "Sair", destroy_user_session_path, method: :delete %></li>
+            </ul>
+          </li>
+        </ul>
+      <% else %>
+        <ul class="nav navbar-nav pull-right">
+          <li><%= link_to "Login", new_user_session_path %></li>
+        </ul>
+      <% end %>
     </div>
 
   </div>
 </nav>
 
 <section id="main-content" class="container">
+  <% flash.each do |name, msg| %>
+    <% if msg.is_a?(String) %>
+      <div class="alert alert-<%= name.to_s == 'notice' ? 'success' : 'danger' %>">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      </div>
+    <% end %>
+  <% end %>
+
 	<%= yield %>
 </section>
 

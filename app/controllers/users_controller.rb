@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :user_admin!
   before_action :set_user, only: [:edit, :update, :show, :destroy]
   def index
   	@users = User.all
@@ -46,7 +47,12 @@ class UsersController < ApplicationController
   private
 
   def user_params
-  	params.require(:user).permit(:first_name, :last_name, :username, :email, :birth_date, :admin)
+    #REMOVE OS CAMPOS DE SENHA DO PARAMETRO CASO A SENHA NÃO SEJA ALTERADA
+    if params[:password].nil? and params[:password_confirmation].nil?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+  	params.require(:user).permit(:first_name, :last_name, :username, :email, :birth_date, :admin, :password, :password_confirmation)
   end
 
   def set_user
