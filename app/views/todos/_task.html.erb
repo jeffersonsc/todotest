@@ -1,0 +1,23 @@
+<li class="list-group-item" data-todo-id="<%= todo.id %>">
+
+	<div class="row show-todo">
+		<div class="col-md-1">
+			<%= check_box_tag :finalized , todo.id , todo.finalized, id: "finalized_#{todo.id}", class: "finalized-todo" %>
+		</div>
+		<div class="col-md-8">
+			<label for="finalized_<%= todo.id %>" class="todo-label"> <%= truncate todo.description, lenght: 50 %></label>
+		</div>
+		<div class="col-md-3">
+			<div class="pull-right">
+				<%= button_tag type: "button", class: "btn btn-primary btn-xs btn-primary bt-edit-todo" do %>
+					<i class="fa fa-pencil-square-o"></i>
+				<% end %>
+				<%= button_tag type: "button", class: "btn btn-primary btn-xs btn-danger delete-todo" do %>
+					<i class="fa fa-times"></i>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="row edit-todo">
+		<%= text_field_tag :desc , todo.description, class: "form-control" %>
+</li>

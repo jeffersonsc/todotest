@@ -6,4 +6,8 @@ module ApplicationHelper
 	def datetime(date)
 		date.strftime("%d/%m/%Y %H:%M")
 	end
+
+	def date(date)
+		date.strftime("%d/%m/%Y")
+	end
 end

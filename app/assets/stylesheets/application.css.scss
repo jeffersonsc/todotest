@@ -19,10 +19,23 @@
 
 body { padding-top: 70px; }
 
-.simple_form .error {
-  clear: left;
-  margin-left: 120px;
-  font-size: 12px;
-  color: #D00;
-  display: block;
+.mt {
+	margin-top: 15px;
+}
+
+.mb {
+	margin-bottom: 15px;
+}
+
+.edit-todo{
+	display: none;
+}
+
+.todo-label{
+	width: 100%;
+	cursor: pointer;
+}
+
+.todo-finalized{
+	text-decoration: line-through
 }

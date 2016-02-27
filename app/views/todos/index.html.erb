@@ -1,0 +1,55 @@
+<h2>Lista de Todos</h2>
+
+<% @users.each do |user| %>
+	<div class="col-md-6">
+		<div class="panel panel-default" data-user="<%= user.id %>">
+		  <div class="panel-heading"><label><%= user.first_name %> <%= user.last_name %></label></div>
+		  <div class="panel-body">
+		  	<div class="form mb">
+		  		<div class="row">
+		  			<div class="col-md-9">
+		  				<%= text_field_tag :description, "", placeholder: "Digite uma tarefa",  class: "form-control" %>
+		  			</div>
+		  			<div class="col-md-3">
+			  			<%= button_tag type: "button", class: "btn btn-primary add-todo" do %>
+				  			<i class="fa fa-plus"></i>
+				  		<% end %>
+				  	</div>
+				  </div>
+		  	</div>
+		  	<ul class="list-group all-todos">
+		  		<% user.todos.each do |todo| %>
+		  			<%= render 'task', todo: todo %>
+		  		<% end %>
+		  	</ul>
+		  </div>
+		</div>
+	</div>
+<% end %>
+
+<!-- Modal -->
+<div class="modal fade" id="addTodo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Adicionar Todo</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="container-fluid">
+	        <%= simple_form_for :todo, remote: true , html: {class: "form-horizontal todo-list-form"} do |f| %>
+						<%= f.input :description, label: "Descrição da tarefa" %>
+						<%= f.input :due_date, as: :date ,start_year: Date.today.year, order: [:day, :month, :year], label: "Data final" %>
+						<% if current_user.admin %>
+							<%= f.input :user_id, collection: User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id] }, label: "Atribuir para" %>
+						<% end %>
+					<% end %>
+				</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="submit" id="saveTodo" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

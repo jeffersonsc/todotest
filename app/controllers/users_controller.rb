@@ -47,12 +47,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    #REMOVE OS CAMPOS DE SENHA DO PARAMETRO CASO A SENHA NÃO SEJA ALTERADA
-    if params[:password].nil? and params[:password_confirmation].nil?
-      params[:user].delete(:password)
-      params[:user].delete(:password_confirmation)
-    end
-  	params.require(:user).permit(:first_name, :last_name, :username, :email, :birth_date, :admin, :password, :password_confirmation)
+  	params.require(:user).permit(:first_name, :last_name, :username, :email, :birth_date, :admin, :password)
   end
 
   def set_user
