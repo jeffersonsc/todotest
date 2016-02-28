@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   	@user = User.new(user_params)
   	if @user.save
   		flash[:notice] = "Usuário criado com sucesso!"
-  		redirect_to users_url 
+  		redirect_to @user
   	else
   		render :new
   	end
@@ -29,18 +29,15 @@ class UsersController < ApplicationController
   def update
   	if @user.update(user_params)
   		flash[:notice] = "Usuário alterado com sucesso!"
-  		redirect_to users_url
+  		redirect_to @user
   	else
   		render :edit
   	end
   end
 
   def destroy
-  	if @user.destroy
-  		flash[:notice] = "Usuário removido com sucesso!"
-  	else
-  		flash[:error] = "Não foi possível remover este usuário."
-  	end
+  	@user.destroy
+  	flash[:notice] = "Usuário removido com sucesso!"
   	redirect_to users_url
   end
 

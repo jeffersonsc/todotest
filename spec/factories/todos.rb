@@ -1,8 +1,7 @@
 FactoryGirl.define do
   factory :todo do
-    user nil
-description "MyString"
-due_date "2016-02-25"
+    user
+		description "Teste de todo"
   end
 
 end
