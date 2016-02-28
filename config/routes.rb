@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :todos
+
+  post '/todos/:id/set_priority' => "todos#set_priority"
   
   root to: 'todos#index'
 

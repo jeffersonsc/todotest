@@ -2,7 +2,7 @@
 
 <% @users.each do |user| %>
 	<div class="col-md-6">
-		<div class="panel panel-default" data-user="<%= user.id %>">
+		<div class="panel panel-default" id="accordion" role="tablist" aria-multiselectable="true" data-user="<%= user.id %>">
 		  <div class="panel-heading"><label><%= user.first_name %> <%= user.last_name %></label></div>
 		  <div class="panel-body">
 		  	<div class="form mb">

@@ -2,8 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
-	
+$(document).on 'ready page:load', ->
 	$('.panel-default .add-todo').click (event) ->
 		addTodo(event)
 
@@ -32,6 +31,16 @@ $ ->
 	$('.all-todos').on('change', '.finalized-todo', (event) -> 
 		finalizedTodo(event)
 	)
+
+	$('.all-todos').sortable({
+		axis: 'y',
+		update: (event, ui)->
+			todo_id = $(ui.item).data('todo-id')
+			priority = ui.item.index()
+			user_id = $(ui.item).parents('.panel-default').data('user')
+			$.post("/todos/#{todo_id}/set_priority", priority: priority, user_id: user_id)
+  })
+
 
 	addTodo = (event) ->
 		user_id = $(event.target).parents('.panel-default').data('user')

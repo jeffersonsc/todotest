@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-	before_action :set_todo, only: [:update, :destroy, :show]
+	before_action :set_todo, only: [:update, :destroy, :show, :set_priority]
 	
 	def index
 		@users = current_user.admin == true ? User.all : [current_user]
@@ -20,6 +20,11 @@ class TodosController < ApplicationController
 	end
 
 	def show
+	end
+
+	def set_priority
+		@todo.alter_priority(params[:priority].to_i, params[:user_id])
+		render json: {status: 'OK'}
 	end
 
 	def destroy
